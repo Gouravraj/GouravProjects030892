@@ -16,7 +16,7 @@ var Electro = mongoose.model('Electro',mongoose.Schema({
 router.get('/api/electro/:id',function(res,req){
 
 		var temp = [];
-		temp=Electro.findOne({_id:req.params.id}).ancestors.toArray;
+		temp=Electro.findOne({_id:req.params.id}).ancestors.toArray;//Electro is collection name
 		function(err,temp)
 		{
 
