@@ -1,93 +1,39 @@
-var express = require("express");
+var express = require('express');
+var router = express.Router();
+var mongoose = require('mongoose');
 
-var bodyparser=require("body-parser");
-
-var app=express();
-
-var mongoose=require("mongoose");
-
-mongoose.connect('mongodb://localhost/emp');
-
-var Employee = mongoose.model('Employee',mongoose.Schema({
-
-	name:String,
-	dept:String,
-	status:String,
-	salary:String,
-	contact:String
+mongoose.connect('mongodb://localhost/electro');
 
 
+var Electro = mongoose.model('Electro',mongoose.Schema({
+
+	_id:String,
+	ancestors:String,
+	parent:String
+	
 }));
 
-app.use(bodyparser.urlencoded({extended:true}));
-app.use(bodyparser.json());
-//app.use(express.static(_dirname + '/client'));
+router.get('/api/electro/:id',function(res,req){
 
-app.get('/api/employees',function(req,res){
+		var temp = [];
+		temp=Electro.findOne({_id:req.params.id}).ancestors.toArray;
+		function(err,temp)
+		{
 
-	Employee.find(function(err,employees) {
-		// body...
-		if(err)
-				res.send(err);
-			res.json(employees);
-	});
-});
+				for(var i=0;i<temp.length;i++)
+				{
+					if (err)
+						res.send(err);
+					else
+						res.json(temp[i]);
+				}
 
+		}
+	});	
 
-app.get('/api/employees/:id',function(req,res){
-
-	Employee.findOne({_id:req.params.id},function(err,employees) {
-		
-		if(err)
-				res.send(err);
-			res.json(employees);
-	});
-});
-
-app.post('/api/employees',function(req,res){
-
-	Employee.create(req.body,function(err,employees) {
-		
-		if(err)
-				res.send(err);
-			res.json(employees);
-	});
-});
-app.delete('/api/employees/:id',function(req,res){
-
-	Employee.findOneAndRemove({_id:req.params.id},function(err,employees) {
-		
-		if(err)
-				res.send(err);
-			res.json(employees);
-	});
-});
-app.delete('/api/employees/:id',function(req,res){
-
-	Employee.findOneAndUpdate ({_id:req.params.id},function(err,employees) {
-		
-		if(err)
-				res.send(err);
-			res.json(employees);
-	});
-});
-
-app.put('/api/employees/:id',function(req,res){
-	var query = {
-		name:req.body.name,
-		dept:req.body.dept,
-		status:req.body.status,
-		salary:req.body.salary,
-		contact:req.body.contact
-};
-	Employee.findOneAndUpdate({_id:req.params.id},query,function(err,employees) {
-		
-		if(err)
-				res.send(err);
-			res.json(employees);
-	});
-});
 app.listen(8000,function(){
 
 	console.log("server is running at port 8000");
 });	
+
+		
