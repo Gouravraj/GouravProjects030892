@@ -24,19 +24,22 @@ var Electro = mongoose.model('Electro',mongoose.Schema({
 app.get('/api/electro/:_id',function(res,req){
 
 		var temp= [];
-		Electro.findOne({_id:req.params.id}).ancestors.toArray(
-		//Electro is collection name
-		function(err,data)
+		Electro.findOne({_id:req.params.id}),function(err,data)
 		{
+		//Electro is collection name
+		
 				for(var i=0;i<data.length;i++)
 					temp.push(data[i])
 
 				if(err)					
 					res.send(err);
-				res.json(data);	
+				
 
-		});
+
+		};
+		res.json(temp);	
 });
+
 		
 	
 		
