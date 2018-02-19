@@ -3,7 +3,7 @@ var app=express();
 var router = express.Router();
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/electro');
+mongoose.connect('mongodb://localhost/emp');
 
 
 var Electro = mongoose.model('Electro',mongoose.Schema({
