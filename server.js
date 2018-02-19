@@ -29,9 +29,9 @@ app.get('/api/electro/:_id',function(res,req){
 		function(err,data)
 		{
 				for(var i=0;i<data.length;i++)
-					temp.push(data[i]);)
+					temp.push(data[i])
 
-				if(err					
+				if(err)					
 					res.send(err);
 				res.json(data);	
 
