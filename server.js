@@ -24,7 +24,7 @@ var Electro = mongoose.model('Electro',mongoose.Schema({
 app.get('/api/electro/:_id',function(res,req){
 
 		var temp= [];
-		Electro.findOne({_id:req.params.id}),function(err,data)
+		Electro.findOne({_id:req.params.id},function(err,data)
 		{
 		//Electro is collection name
 		
@@ -36,7 +36,7 @@ app.get('/api/electro/:_id',function(res,req){
 				
 
 
-		};
+		});
 		res.json(temp);	
 });
 
