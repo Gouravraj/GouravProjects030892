@@ -21,7 +21,7 @@ var Electro = mongoose.model('Electro',mongoose.Schema({
 //	res.send("Hello world!");
 //})   
 
-app.get('/api/electro/:ancestors_id',function(res,req){
+app.get('/api/electro/:_id',function(res,req){
 
 		var temp= [];
 		Electro.findOne({_id:req.params.id}).ancestors.toArray(
